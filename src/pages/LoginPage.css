@@ -22,6 +22,43 @@
   box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.15), 0 8px 16px -6px rgba(15, 23, 42, 0.08);
   position: relative;
   overflow: hidden;
+  transition: max-width 0.25s ease;
+}
+
+.auth-card.register-wide {
+  max-width: 780px;
+  padding: 2rem 2.5rem;
+}
+
+.auth-card.register-wide .auth-header {
+  margin-bottom: 1.35rem;
+}
+
+.auth-form.register-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem 1.25rem;
+}
+
+.auth-form.register-grid .form-group {
+  margin-bottom: 0;
+}
+
+.auth-form.register-grid .full-span {
+  grid-column: 1 / -1;
+}
+
+.form-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.9rem;
+}
+
+@media (max-width: 680px) {
+  .auth-form.register-grid,
+  .form-row-3 {
+    grid-template-columns: 1fr;
+  }
 }
 
 .auth-card::before {

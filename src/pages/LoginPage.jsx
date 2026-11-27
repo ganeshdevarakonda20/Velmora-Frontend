@@ -101,7 +101,7 @@ function LoginPage() {
 
   return (
     <div className="auth-page container">
-      <div className="auth-card card">
+      <div className={`auth-card card ${isRegisterMode ? 'register-wide' : ''}`}>
         <div className="auth-header">
           <div className="logo-star-badge">
             <FiStar className="star-icon" />
@@ -122,7 +122,7 @@ function LoginPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="auth-form">
+        <form onSubmit={handleSubmit} className={`auth-form ${isRegisterMode ? 'register-grid' : ''}`}>
           {isRegisterMode && (
             <div className="form-group">
               <label className="form-label">Full Name</label>
@@ -207,7 +207,7 @@ function LoginPage() {
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="form-group full-span">
                 <label className="form-label">Street Address</label>
                 <div className="input-with-icon">
                   <span className="input-icon-wrapper">
@@ -224,7 +224,7 @@ function LoginPage() {
                 </div>
               </div>
 
-              <div className="form-row-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+              <div className="form-row-3 full-span">
                 <div className="form-group">
                   <label className="form-label">City</label>
                   <input
@@ -248,25 +248,25 @@ function LoginPage() {
                     className="form-input"
                   />
                 </div>
-              </div>
 
-              <div className="form-group">
-                <label className="form-label">Postal Pincode</label>
-                <input
-                  type="text"
-                  name="pincode"
-                  placeholder="600001"
-                  value={formData.pincode}
-                  onChange={handleChange}
-                  className="form-input"
-                />
+                <div className="form-group">
+                  <label className="form-label">Postal Pincode</label>
+                  <input
+                    type="text"
+                    name="pincode"
+                    placeholder="600001"
+                    value={formData.pincode}
+                    onChange={handleChange}
+                    className="form-input"
+                  />
+                </div>
               </div>
             </>
           )}
 
           <button 
             type="submit" 
-            className="btn-primary auth-submit-btn" 
+            className="btn-primary auth-submit-btn full-span" 
             disabled={loading}
           >
             {loading ? "Processing..." : (isRegisterMode ? "Create Account" : "Sign In")} <FiArrowRight />
