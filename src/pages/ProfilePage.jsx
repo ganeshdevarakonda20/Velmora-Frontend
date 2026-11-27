@@ -14,7 +14,7 @@ import {
   FiAlertCircle
 } from 'react-icons/fi'
 import { useAuth } from '../context/AuthContext'
-import { getCurrentUser, updateUserProfile } from '../api/authApi'
+import { getCurrentUser, updateUserProfile, getAddressesByUserId } from '../api/authApi'
 import './ProfilePage.css'
 
 function ProfilePage() {
@@ -26,9 +26,9 @@ function ProfilePage() {
     email: user?.email || '',
     phone: user?.phone || '',
     street: '',
-    city: 'Chennai',
-    state: 'Tamil Nadu',
-    pincode: '600001',
+    city: '',
+    state: '',
+    pincode: '',
     address: user?.address || ''
   })
   const [successMsg, setSuccessMsg] = useState('')
@@ -51,29 +51,75 @@ function ProfilePage() {
         const res = await getCurrentUser()
         if (res.data) {
           const dbUser = res.data
-          const rawAddr = dbUser.address || ''
+          const cleanAddr = (raw, userName) => {
+            if (!raw || raw === 'None') return ''
+            let cleaned = raw.replace(/\.?\s*Phone:\s*.*$/i, '').trim()
+            if (userName) {
+              const prefix = `${userName.trim()},`
+              if (cleaned.toLowerCase().startsWith(prefix.toLowerCase())) {
+                cleaned = cleaned.slice(prefix.length).trim()
+              }
+            }
+            return cleaned
+          }
+
+          const rawAddr = cleanAddr(dbUser.address, dbUser.name)
           
-          // Try to parse components if comma-separated
+          // Parse fallback from users.address if comma-separated (without username/phone)
           let parsedStreet = rawAddr
-          let parsedCity = 'Chennai'
-          let parsedState = 'Tamil Nadu'
-          let parsedPin = '600001'
+          let parsedCity = ''
+          let parsedState = ''
+          let parsedPin = ''
 
           if (rawAddr.includes(',')) {
-            const parts = rawAddr.split(',').map(s => s.trim())
-            parsedStreet = parts[0] || rawAddr
-            if (parts.length > 1) parsedCity = parts[1]
-            if (parts.length > 2) {
-              const statePin = parts[2].split('-').map(s => s.trim())
-              parsedState = statePin[0] || parsedState
-              if (statePin.length > 1) parsedPin = statePin[1]
+            const parts = rawAddr.split(',').map(s => s.trim()).filter(Boolean)
+            parsedStreet = parts[0] || ''
+            if (parts[1]) {
+              if (parts[1].includes('-')) {
+                const cityPin = parts[1].split('-').map(s => s.trim())
+                parsedCity = cityPin[0] || ''
+                parsedPin = cityPin[1] || ''
+              } else {
+                parsedCity = parts[1]
+              }
+            }
+            if (parts[2]) {
+              if (parts[2].includes('-')) {
+                const statePin = parts[2].split('-').map(s => s.trim())
+                parsedState = statePin[0] || ''
+                parsedPin = parsedPin || statePin[1] || ''
+              } else {
+                parsedState = parts[2]
+              }
+            }
+          }
+
+          // Fetch structured address directly from MySQL addresses table by userId
+          if (dbUser.userId) {
+            try {
+              const addrRes = await getAddressesByUserId(dbUser.userId)
+              if (Array.isArray(addrRes.data) && addrRes.data.length > 0) {
+                const dbAddr = addrRes.data[0]
+                const sanitizedStreet = cleanAddr(dbAddr.street, dbUser.name)
+                if (sanitizedStreet && sanitizedStreet.includes(',')) {
+                  const sParts = sanitizedStreet.split(',').map(s => s.trim()).filter(Boolean)
+                  parsedStreet = sParts[0] || sanitizedStreet
+                } else if (sanitizedStreet) {
+                  parsedStreet = sanitizedStreet
+                }
+                parsedCity = dbAddr.city || parsedCity
+                parsedState = dbAddr.state || parsedState
+                parsedPin = dbAddr.pincode || parsedPin
+              }
+            } catch (addrErr) {
+              console.warn('Could not load structured address from addresses table:', addrErr.message)
             }
           }
 
           setFormData({
             name: dbUser.name || '',
             email: dbUser.email || '',
-            phone: dbUser.phone || '',
+            phone: (dbUser.phone && dbUser.phone !== 'None') ? dbUser.phone : '',
             street: parsedStreet,
             city: parsedCity,
             state: parsedState,
@@ -114,7 +160,10 @@ function ProfilePage() {
     setSuccessMsg('')
     setErrorMsg('')
 
-    const fullAddress = `${formData.street ? formData.street : ''}${formData.city ? ', ' + formData.city : ''}${formData.state ? ', ' + formData.state : ''}${formData.pincode ? ' - ' + formData.pincode : ''}`.trim() || formData.address
+    const cityPin = formData.city
+      ? (formData.pincode ? `${formData.city.trim()} - ${formData.pincode.trim()}` : formData.city.trim())
+      : (formData.pincode ? formData.pincode.trim() : '')
+    const fullAddress = [formData.street?.trim(), cityPin, formData.state?.trim()].filter(Boolean).join(', ') || formData.address
 
     const updatePayload = {
       name: formData.name,
@@ -236,10 +285,7 @@ function ProfilePage() {
           <div className="profile-card-header">
             <div>
               <h2>Account & Address Details</h2>
-              <p>View, update, or clear your delivery address and contact information stored in MySQL.</p>
-            </div>
-            <div className="db-sync-indicator">
-              <FiCheck /> Synced with MySQL
+              <p>View, update, or clear your saved delivery address and contact information.</p>
             </div>
           </div>
 

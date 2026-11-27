@@ -68,7 +68,6 @@ function Navbar() {
 
             {/* Search Bar placed on the LEFT */}
             <form className="nav-search-form" onSubmit={handleSearch}>
-              <FiSearch className="search-icon" />
               <input
                 type="text"
                 placeholder="Search Zara, Snitch, Shirts, T-Shirts, Cargo, Jeans..."
@@ -76,6 +75,9 @@ function Navbar() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="search-input"
               />
+              <button type="submit" className="search-submit-btn" aria-label="Search" title="Search">
+                <FiSearch className="search-icon" />
+              </button>
             </form>
           </div>
 

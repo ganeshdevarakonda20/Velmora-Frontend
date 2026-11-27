@@ -19,6 +19,7 @@ import {
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
 import { checkoutOrder } from '../api/orderApi'
+import { getAddressesByUserId } from '../api/authApi'
 import './CheckoutPage.css'
 
 const POPULAR_BANKS = [
@@ -35,15 +36,15 @@ function CheckoutPage() {
   const { user, isLoggedIn } = useAuth()
   const navigate = useNavigate()
 
-  // Form State: Pre-filled automatically from database user profile
+  // Form State: Pre-filled automatically from database user & addresses table (no hardcoded city/state/pincode)
   const [formData, setFormData] = useState({
     fullName: user?.name || '',
     email: user?.email || '',
     phone: user?.phone || '',
-    address: user?.address || '',
-    city: 'Chennai',
-    state: 'Tamil Nadu',
-    pincode: '600001',
+    address: '',
+    city: '',
+    state: '',
+    pincode: '',
     landmark: '',
     paymentMethod: 'UPI' // UPI, CARD, NETBANKING, COD
   })
@@ -77,19 +78,86 @@ function CheckoutPage() {
     }
   }, [isLoggedIn, navigate])
 
-  // Automatically detect and prefill address and contact info from user database profile
+  // Automatically detect and prefill contact & address details from MySQL users and addresses tables
   useEffect(() => {
-    if (user) {
-      setFormData(prev => ({
-        ...prev,
-        fullName: prev.fullName || user.name || '',
-        email: prev.email || user.email || '',
-        phone: prev.phone || user.phone || '',
-        address: prev.address || user.address || ''
-      }))
-      if (!cardHolder && user.name) {
-        setCardHolder(user.name)
+    if (!user) return
+
+    const cleanStreet = (rawStreet, userName) => {
+      if (!rawStreet || rawStreet === 'None') return ''
+      let cleaned = rawStreet.replace(/\.?\s*Phone:\s*.*$/i, '').trim()
+      if (userName) {
+        const prefix = `${userName.trim()},`
+        if (cleaned.toLowerCase().startsWith(prefix.toLowerCase())) {
+          cleaned = cleaned.slice(prefix.length).trim()
+        }
       }
+      return cleaned
+    }
+
+    const parseAddressString = (rawAddr) => {
+      const cleaned = cleanStreet(rawAddr, user.name)
+      if (!cleaned) return { street: '', city: '', state: '', pincode: '' }
+      const parts = cleaned.split(',').map(s => s.trim()).filter(Boolean)
+      const street = parts[0] || ''
+      let city = ''
+      let state = ''
+      let pincode = ''
+      if (parts[1]) {
+        if (parts[1].includes('-')) {
+          const cityPin = parts[1].split('-').map(s => s.trim())
+          city = cityPin[0] || ''
+          pincode = cityPin[1] || ''
+        } else {
+          city = parts[1]
+        }
+      }
+      if (parts[2]) {
+        if (parts[2].includes('-')) {
+          const statePin = parts[2].split('-').map(s => s.trim())
+          state = statePin[0] || ''
+          pincode = pincode || statePin[1] || ''
+        } else {
+          state = parts[2]
+        }
+      }
+      return { street, city, state, pincode }
+    }
+
+    const fallbackParsed = parseAddressString(user.address)
+
+    setFormData(prev => ({
+      ...prev,
+      fullName: prev.fullName || user.name || '',
+      email: prev.email || user.email || '',
+      phone: prev.phone || user.phone || '',
+      address: prev.address || fallbackParsed.street || '',
+      city: prev.city || fallbackParsed.city || '',
+      state: prev.state || fallbackParsed.state || '',
+      pincode: prev.pincode || fallbackParsed.pincode || ''
+    }))
+
+    if (!cardHolder && user.name) {
+      setCardHolder(user.name)
+    }
+
+    if (user.userId) {
+      getAddressesByUserId(user.userId)
+        .then(res => {
+          const addresses = res.data
+          if (Array.isArray(addresses) && addresses.length > 0) {
+            const dbAddr = addresses[0]
+            const sanitizedStreet = cleanStreet(dbAddr.street, user.name)
+            const reparsed = sanitizedStreet.includes(',') ? parseAddressString(sanitizedStreet) : null
+            setFormData(prev => ({
+              ...prev,
+              address: (reparsed?.street || sanitizedStreet) || prev.address,
+              city: dbAddr.city || reparsed?.city || prev.city,
+              state: dbAddr.state || reparsed?.state || prev.state,
+              pincode: dbAddr.pincode || reparsed?.pincode || prev.pincode
+            }))
+          }
+        })
+        .catch(err => console.warn('Could not fetch from addresses table:', err.message))
     }
   }, [user, cardHolder])
 
@@ -164,7 +232,9 @@ function CheckoutPage() {
       }
     }
 
-    const fullShippingAddress = `${formData.fullName}, ${formData.address}${formData.landmark ? ', Landmark: ' + formData.landmark : ''}, ${formData.city}, ${formData.state} - ${formData.pincode}. Phone: ${formData.phone}`
+    // Format strictly as: Street (+ Landmark), City - Pincode, State (without username or phone)
+    const streetPart = `${formData.address.trim()}${formData.landmark ? ', ' + formData.landmark.trim() : ''}`
+    const fullShippingAddress = `${streetPart}, ${formData.city.trim()} - ${formData.pincode.trim()}, ${formData.state.trim()}`
 
     // Construct enriched payment description
     let paymentDetail = formData.paymentMethod
@@ -219,7 +289,7 @@ function CheckoutPage() {
           <h2>Thank You for Ordering with Velmora</h2>
           <p className="order-num-text">Order Reference: <strong>#VEL-{orderId}</strong></p>
           <p className="order-success-desc">
-            Your branded apparel order has been placed successfully in the database.
+            Your order has been placed successfully.
             Real-time tracking and delivery updates have been scheduled for <strong>{formData.email || 'your registered email'}</strong>.
           </p>
 
@@ -234,7 +304,7 @@ function CheckoutPage() {
             </div>
             <div className="summary-pill">
               <span>Delivery Status:</span>
-              <strong className="status-processing">Processing & Tailoring</strong>
+              <strong className="status-processing">Processing</strong>
             </div>
           </div>
 
@@ -259,11 +329,6 @@ function CheckoutPage() {
   if (cartItems.length === 0 && !loading) {
     return (
       <div className="checkout-page container">
-        <div className="checkout-nav-back-row">
-          <button type="button" className="page-back-btn" onClick={() => navigate('/products')}>
-            <FiArrowLeft /> Back to Shop
-          </button>
-        </div>
         <div className="empty-cart-box card">
           <FiShoppingBag className="empty-bag-large-icon" />
           <h2>Your Shopping Bag is Empty</h2>
@@ -280,16 +345,9 @@ function CheckoutPage() {
 
   return (
     <div className="checkout-page container">
-      {/* Back to Bag navigation */}
-      <div className="checkout-nav-back-row">
-        <button type="button" className="page-back-btn" onClick={() => navigate('/cart')}>
-          <FiArrowLeft /> Back to Bag
-        </button>
-      </div>
-
       <div className="checkout-header">
-        <h1>Velmora Bespoke Checkout</h1>
-        <p>Review your verified shipping address and complete your secure payment.</p>
+        <h1>Checkout</h1>
+        <p>Review your shipping address and complete your secure payment.</p>
       </div>
 
       {error && (
@@ -308,9 +366,6 @@ function CheckoutPage() {
           <div className="checkout-section-card card">
             <div className="section-title-row">
               <h3 className="section-title">1. Delivery & Contact Details</h3>
-              <span className="autofill-badge">
-                <FiCheck /> Auto-filled from Database Profile
-              </span>
             </div>
             
             <div className="form-grid-2">

@@ -68,8 +68,8 @@ function OrdersPage() {
   return (
     <div className="orders-page container">
       <div className="orders-header">
-        <h1>My Bespoke Orders & Tracking</h1>
-        <p>Review real-time status, packaging schedules, and delivery transit of your Velmora apparel.</p>
+        <h1>My Orders & Tracking</h1>
+        <p>Review real-time status, packaging schedules, and delivery transit of your Velmora orders.</p>
       </div>
 
       {loading ? (
@@ -106,7 +106,7 @@ function OrdersPage() {
                   </div>
                   <div className="order-status-badge-wrap">
                     <span className={`status-badge ${progressStep >= 3 ? 'status-shipped' : 'status-processing'}`}>
-                      <FiClock /> {progressStep >= 3 ? 'Shipped & In Transit' : 'Processing & Tailoring'}
+                      <FiClock /> {progressStep >= 3 ? 'Shipped & In Transit' : 'Processing'}
                     </span>
                   </div>
                 </div>
@@ -131,8 +131,8 @@ function OrdersPage() {
                       <div className="node-circle">
                         {progressStep > 2 ? <FiCheck /> : <FiClock />}
                       </div>
-                      <span className="node-title">Processing & Tailoring</span>
-                      <span className="node-desc">Quality Passed</span>
+                      <span className="node-title">Processing</span>
+                      <span className="node-desc">Packed & Ready</span>
                     </div>
 
                     <div className={`stepper-node ${progressStep >= 3 ? 'active' : ''}`}>

@@ -37,8 +37,28 @@ function ProductsPage() {
       try {
         let prods = []
         if (searchQuery.trim()) {
-          const res = await searchProducts(searchQuery)
+          // Reset stale sidebar filters when a new search query is executed
+          setSelectedCategory('All')
+          setSelectedBrand('All')
+          const res = await searchProducts(searchQuery.trim())
           prods = res.data || []
+
+          // Client-side fallback across name, brand, category, description, and singular/plural
+          if (prods.length === 0) {
+            const allRes = await getAllProducts()
+            const allProds = allRes.data || []
+            const q = searchQuery.trim().toLowerCase()
+            const singularQ = q.endsWith('s') && q.length > 3 ? q.slice(0, -1) : q
+            prods = allProds.filter(p => {
+              const hay = [
+                p.productName || p.name || '',
+                p.brand || '',
+                p.category?.categoryName || p.categoryName || '',
+                p.description || ''
+              ].join(' ').toLowerCase()
+              return hay.includes(q) || hay.includes(singularQ)
+            })
+          }
         } else {
           const res = await getAllProducts()
           prods = res.data || []
