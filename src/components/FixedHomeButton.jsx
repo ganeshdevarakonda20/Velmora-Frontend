@@ -9,7 +9,12 @@ function FixedHomeButton() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    // Show on all subpages; on homepage only show if scrolled down
+    // Never show on Sign In / Register pages
+    if (location.pathname === '/login') {
+      setVisible(false)
+      return
+    }
+    // Show on all other subpages; on homepage only show if scrolled down
     if (location.pathname !== '/') {
       setVisible(true)
     } else {
