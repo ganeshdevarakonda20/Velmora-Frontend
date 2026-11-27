@@ -1,0 +1,252 @@
+/* ========================================================
+   AJIO MODERN PRODUCT CARD STYLES
+   ======================================================== */
+
+.modern-product-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: all 0.25s ease;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.modern-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+  border-color: #CBD5E1;
+}
+
+.card-media-anchor {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Image Container */
+.card-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: #F1F5F9;
+}
+
+.product-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.modern-product-card:hover .product-media-img {
+  transform: scale(1.05);
+}
+
+/* Offer Badge */
+.card-offer-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: var(--color-discount);
+  color: #FFFFFF;
+  font-family: var(--font-brand);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.35);
+  z-index: 2;
+}
+
+/* Rating Pill */
+.card-rating-pill {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--border-light);
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-brand);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  z-index: 2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.rating-star-icon {
+  color: #F59E0B;
+  font-size: 0.8rem;
+}
+
+.rating-divider {
+  color: var(--text-light);
+  font-size: 0.75rem;
+}
+
+.rating-count {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* Card Body */
+.card-body {
+  padding: 0.85rem 0.95rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+/* Brand Name */
+.card-brand-name {
+  font-family: var(--font-brand);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Product Title */
+.card-product-title {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+/* Description preview */
+.card-description-preview {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--text-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0 0 0.25rem;
+}
+
+/* Price Matrix */
+.card-price-matrix {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.65rem;
+}
+
+.card-selling-price {
+  font-family: var(--font-brand);
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.card-mrp-price {
+  font-family: var(--font-brand);
+  font-size: 0.78rem;
+  color: #94A3B8;
+  text-decoration: line-through;
+}
+
+.card-discount-pill {
+  font-family: var(--font-brand);
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #DC2626;
+}
+
+/* Permanent Always-Visible Add to Cart Button */
+.card-permanent-add-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  background-color: #0F172A;
+  color: #FFFFFF;
+  border: 1.5px solid #0F172A;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-brand);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: auto;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+.card-permanent-add-btn .btn-bag-icon {
+  font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+
+.card-permanent-add-btn:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
+}
+
+.card-permanent-add-btn:hover .btn-bag-icon {
+  transform: scale(1.15);
+}
+
+/* Reactive Added Success Animation State */
+.card-permanent-add-btn.added-success {
+  background: linear-gradient(135deg, #16A34A 0%, #15803D 100%) !important;
+  border-color: #16A34A !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4) !important;
+  transform: scale(1.02);
+  animation: pulseButton 0.4s ease-out;
+}
+
+.check-pop-anim {
+  animation: checkPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-text-anim {
+  animation: textFadeIn 0.3s ease-in;
+}
+
+@keyframes pulseButton {
+  0% { transform: scale(0.96); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1.02); }
+}
+
+@keyframes checkPop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.3); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes textFadeIn {
+  0% { opacity: 0; transform: translateY(4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+

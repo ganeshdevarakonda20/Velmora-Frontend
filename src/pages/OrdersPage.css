@@ -1,0 +1,338 @@
+/* =========================================
+   OrdersPage Styles — Velmora
+   ========================================= */
+
+.orders-page {
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+}
+
+.orders-nav-back-row {
+  margin-bottom: 1.5rem;
+}
+
+.orders-header {
+  margin-bottom: 2.5rem;
+}
+
+.orders-header h1 {
+  font-family: var(--font-brand);
+  font-size: 1.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 0.25rem;
+}
+
+.orders-header p {
+  font-size: 0.92rem;
+  color: #64748B;
+}
+
+.empty-orders-box {
+  padding: 4rem 2rem;
+  text-align: center;
+  max-width: 500px;
+  margin: 3rem auto;
+  border-radius: 16px;
+  border: 1.5px solid #E2E8F0;
+  background: #FFFFFF;
+}
+
+.empty-pkg-icon {
+  font-size: 3.5rem;
+  color: #2563EB;
+  margin-bottom: 1rem;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.order-card {
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1.5px solid #E2E8F0;
+  background: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px solid #E2E8F0;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.order-id {
+  font-family: var(--font-brand);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  display: block;
+}
+
+.order-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: #64748B;
+  margin-top: 0.25rem;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-family: var(--font-brand);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.status-processing {
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #BFDBFE;
+}
+
+.status-badge.status-shipped {
+  background: #FAF5FF;
+  color: #7E22CE;
+  border: 1px solid #E9D5FF;
+}
+
+/* =========================================
+   Visual 4-Step Progress Tracking Stepper
+   ========================================= */
+
+.order-stepper-container {
+  position: relative;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1.75rem 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.stepper-track {
+  position: absolute;
+  top: 2.65rem;
+  left: 10%;
+  right: 10%;
+  height: 4px;
+  background: #E2E8F0;
+  z-index: 1;
+  border-radius: 9999px;
+}
+
+.stepper-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #16A34A 0%, #2563EB 100%);
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+.stepper-steps-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  z-index: 2;
+  text-align: center;
+}
+
+.stepper-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.node-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid #CBD5E1;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.stepper-node.completed .node-circle {
+  background: #16A34A;
+  border-color: #16A34A;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.3);
+}
+
+.stepper-node.active .node-circle {
+  background: #2563EB;
+  border-color: #2563EB;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  animation: pulseNode 1.8s infinite;
+}
+
+.node-title {
+  font-family: var(--font-brand);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.node-desc {
+  font-size: 0.7rem;
+  color: #64748B;
+  margin-top: 0.15rem;
+}
+
+@keyframes pulseNode {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+  70% { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+}
+
+/* =========================================
+   Order Items Table & Details
+   ========================================= */
+
+.order-items-table {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.order-item-line {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.order-item-thumb {
+  width: 52px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #E2E8F0;
+}
+
+.item-name-col h6 {
+  font-family: var(--font-brand);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 0.2rem;
+}
+
+.item-name-col span {
+  font-size: 0.78rem;
+  color: #64748B;
+}
+
+.item-qty-col {
+  font-family: var(--font-brand);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.item-price-col {
+  font-family: var(--font-brand);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.order-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1.5px solid #E2E8F0;
+  padding-top: 1.25rem;
+  gap: 1.5rem;
+}
+
+.shipping-dest strong {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: #64748B;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.shipping-dest p {
+  font-size: 0.88rem;
+  color: #0F172A;
+  max-width: 480px;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.order-pm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  background: #F1F5F9;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.order-card-total {
+  text-align: right;
+}
+
+.order-card-total span {
+  display: block;
+  font-size: 0.82rem;
+  color: #64748B;
+  margin-bottom: 0.25rem;
+}
+
+.order-card-total strong {
+  font-family: var(--font-brand);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #2563EB;
+}
+
+@media (max-width: 640px) {
+  .order-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .stepper-steps-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .stepper-track {
+    display: none;
+  }
+  .order-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .order-card-total {
+    text-align: left;
+  }
+}

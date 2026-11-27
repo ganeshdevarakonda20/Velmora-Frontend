@@ -1,0 +1,121 @@
+/* =========================================
+   ContactPage Styles — Velmora
+   ========================================= */
+
+.contact-page {
+  padding-top: 1.5rem;
+  padding-bottom: 6rem;
+}
+
+.contact-nav-back-row {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.contact-header {
+  margin-bottom: 3.5rem;
+}
+
+.contact-eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.contact-info-card {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-info-card h3 {
+  font-size: var(--fs-2xl);
+  color: var(--color-heading);
+}
+
+.contact-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.c-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.c-icon {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.c-detail-item strong {
+  display: block;
+  font-size: var(--fs-sm);
+  color: var(--color-heading);
+  margin-bottom: 0.2rem;
+}
+
+.c-detail-item p {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+.contact-form-card {
+  padding: 2.5rem;
+}
+
+.c-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.c-form h3 {
+  font-size: var(--fs-2xl);
+  color: var(--color-heading);
+  margin-bottom: 0.5rem;
+}
+
+.c-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+.contact-success-box {
+  padding: 3rem 1rem;
+}
+
+.c-success-icon {
+  font-size: 3.5rem;
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 900px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+}

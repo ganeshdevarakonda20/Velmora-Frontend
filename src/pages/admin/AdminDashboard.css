@@ -1,0 +1,214 @@
+/* =========================================
+   AdminDashboard Styles — Velmora
+   ========================================= */
+
+.admin-page {
+  padding-top: 3.5rem;
+  padding-bottom: 6rem;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.admin-eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  padding: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.stat-icon {
+  font-size: 2.25rem;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.stat-label {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.stat-card h3 {
+  font-size: var(--fs-xl);
+  color: var(--color-heading);
+  margin: 0;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1.5px solid var(--color-border);
+  padding-bottom: 0.75rem;
+}
+
+.admin-tab-btn {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-light);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.admin-tab-btn.active {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.admin-table-card {
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-table th {
+  padding: 1rem;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-heading);
+  border-bottom: 1.5px solid var(--color-border);
+}
+
+.admin-table td {
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+}
+
+.table-product-name {
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.table-price {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.admin-delete-btn {
+  background: none;
+  border: none;
+  color: #c53030;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.admin-delete-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 15, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 540px;
+  background-color: var(--color-white);
+  padding: 2.25rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.75rem;
+}
+
+.modal-header h3 {
+  font-size: var(--fs-xl);
+  color: var(--color-heading);
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--color-heading);
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 992px) {
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .admin-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

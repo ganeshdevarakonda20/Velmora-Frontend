@@ -1,0 +1,104 @@
+/* =========================================
+   CategoriesPage Styles — Velmora
+   ========================================= */
+
+.categories-page {
+  padding-top: 1.5rem;
+  padding-bottom: 5rem;
+}
+
+.categories-nav-back-row {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.categories-header {
+  margin-bottom: 3.5rem;
+}
+
+.cat-eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.categories-full-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+}
+
+.category-full-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  height: 320px;
+}
+
+.cat-card-img-box {
+  height: 100%;
+}
+
+.cat-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.category-full-card:hover .cat-card-img {
+  transform: scale(1.06);
+}
+
+.cat-card-content {
+  padding: 2.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  background-color: var(--color-card);
+}
+
+.cat-card-content h3 {
+  font-size: var(--fs-xl);
+  color: var(--color-heading);
+  line-height: 1.25;
+}
+
+.cat-card-content p {
+  font-size: var(--fs-sm);
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+.cat-action-btn {
+  margin-top: 0.5rem;
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  font-size: var(--fs-xs);
+}
+
+@media (max-width: 900px) {
+  .categories-full-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .category-full-card {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .cat-card-img-box {
+    height: 220px;
+  }
+}

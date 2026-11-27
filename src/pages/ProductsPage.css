@@ -1,0 +1,228 @@
+/* ========================================================
+   AJIO MODERN PRODUCTS PAGE STYLES
+   ======================================================== */
+
+.ajio-products-page {
+  padding-top: 1.5rem;
+  padding-bottom: 5rem;
+}
+
+.products-nav-back-row {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.catalog-top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  border-bottom: 1.5px solid var(--border-light);
+  padding-bottom: 1rem;
+}
+
+.catalog-title {
+  font-family: var(--font-brand);
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--text-dark);
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.catalog-count-pill {
+  font-family: var(--font-brand);
+  font-size: 0.8rem;
+  font-weight: 700;
+  background-color: var(--bg-secondary);
+  color: var(--text-muted);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-light);
+}
+
+.catalog-main-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* --- Filter Sidebar --- */
+.modern-filter-sidebar {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.filter-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 0.75rem;
+}
+
+.filter-header-bar h4 {
+  font-family: var(--font-brand);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.clear-all-btn {
+  background: none;
+  border: none;
+  color: var(--color-discount);
+  font-family: var(--font-brand);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.filter-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filter-box-title {
+  font-family: var(--font-brand);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.filter-box-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-val-tag {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.filter-options-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.filter-pill-opt {
+  font-family: var(--font-brand);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xs);
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filter-pill-opt:hover {
+  background-color: #E2E8F0;
+}
+
+.filter-pill-opt.active {
+  background-color: var(--text-dark);
+  border-color: var(--text-dark);
+  color: #FFFFFF;
+}
+
+.modern-range-slider {
+  width: 100%;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.range-bounds {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-light);
+}
+
+/* --- Stream & Grid --- */
+.catalog-products-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sort-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+}
+
+.stream-summary-text {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.sort-by-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.sort-by-wrap label {
+  font-family: var(--font-brand);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+}
+
+.modern-sort-select {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-xs);
+  border: 1.5px solid var(--border-light);
+  background-color: #FFFFFF;
+  color: var(--text-dark);
+  outline: none;
+}
+
+.products-grid-feed {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.catalog-empty {
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .products-grid-feed {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .catalog-main-layout {
+    grid-template-columns: 1fr;
+  }
+  .products-grid-feed {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

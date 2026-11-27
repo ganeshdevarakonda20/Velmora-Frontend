@@ -1,0 +1,14 @@
+/* Temporary styles for placeholder pages */
+.page-placeholder {
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.page-placeholder h1 {
+  margin-bottom: 1rem;
+}
+
+.page-placeholder p {
+  font-size: var(--fs-md);
+  margin-bottom: 0.5rem;
+}
