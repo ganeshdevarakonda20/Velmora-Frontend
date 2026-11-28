@@ -248,3 +248,27 @@ button {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* =========================================================
+   GLOBAL RESPONSIVE UTILITIES — Mobile First
+   ========================================================= */
+
+/* Slightly tighter base font on very small phones */
+@media (max-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+  .container {
+    padding: 0 0.875rem;
+  }
+}
+
+/* Prevent any element from overflowing horizontally */
+img, video, iframe, table {
+  max-width: 100%;
+}
+
+/* Smooth scrolling on mobile */
+html {
+  -webkit-overflow-scrolling: touch;
+}

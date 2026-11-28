@@ -255,3 +255,14 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+@media (max-width: 480px) {
+  .products-grid-feed {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  /* Make filter sidebar collapsible on mobile — compact appearance */
+  .modern-filter-sidebar {
+    padding: 1rem;
+  }
+}

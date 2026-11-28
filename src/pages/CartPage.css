@@ -410,3 +410,73 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 600px) {
+  /* Hide the table header columns — we convert rows to card style */
+  .cart-table-header {
+    display: none;
+  }
+
+  /* Each item row becomes a vertical card */
+  .cart-item-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid #F1F5F9;
+  }
+
+  /* Product info row stays horizontal */
+  .cart-item-product {
+    align-items: flex-start;
+  }
+
+  /* Show price label inline */
+  .cart-item-unit-price::before {
+    content: "Price: ";
+    color: #64748B;
+    font-weight: 600;
+    font-size: 0.78rem;
+  }
+
+  /* Qty + subtotal + remove in one row */
+  .cart-item-row > .cart-item-subtotal,
+  .cart-item-row > .qty-control,
+  .cart-item-row > .remove-btn {
+    display: inline-flex;
+  }
+
+  /* Row for qty / subtotal / remove */
+  .cart-item-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .cart-item-subtotal {
+    font-size: 1rem;
+  }
+
+  /* Clear + continue links wrap */
+  .cart-footer-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  /* Summary section not sticky on mobile */
+  .cart-summary-section {
+    position: static;
+  }
+}
+
+@media (max-width: 400px) {
+  .cart-items-section {
+    padding: 1rem;
+  }
+  .cart-summary-section {
+    padding: 1.25rem;
+  }
+}

@@ -954,3 +954,13 @@
     gap: 0.75rem;
   }
 }
+
+@media (max-width: 480px) {
+  .checkout-section-card {
+    padding: 1.25rem 1rem;
+  }
+  .checkout-order-summary {
+    padding: 1.25rem 1rem;
+    position: static;
+  }
+}

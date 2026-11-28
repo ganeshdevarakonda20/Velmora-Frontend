@@ -495,4 +495,50 @@
     width: 100%;
     padding: 0.75rem 1rem;
   }
+
+  /* Shrink the user pill label on mobile */
+  .user-logged-pill {
+    min-width: unset;
+  }
+  .user-logged-pill .action-label {
+    max-width: 100px;
+  }
+
+  /* Tighten nav actions gap */
+  .nav-actions {
+    gap: 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Promo bar wraps gracefully on tiny screens */
+  .top-promo-bar {
+    font-size: 0.65rem;
+    padding: 0.4rem 0.75rem;
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  /* Logo slightly smaller */
+  .brand-logo-svg {
+    height: 32px;
+  }
+
+  /* Action pills — icon only, hide label text */
+  .action-label {
+    display: none;
+  }
+  .user-logged-pill {
+    padding: 0.4rem;
+    min-width: unset;
+  }
+  .action-pill-btn {
+    padding: 0.4rem;
+  }
+
+  /* Hamburger button more visible */
+  .mobile-toggle-btn {
+    font-size: 1.35rem;
+    padding: 0.4rem;
+  }
 }

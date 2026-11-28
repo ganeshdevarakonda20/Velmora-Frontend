@@ -250,3 +250,28 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* =========================================================
+   ProductCard Responsive Fixes
+   ========================================================= */
+@media (max-width: 480px) {
+  /* Card name / brand text smaller to fit 2-col grid */
+  .product-card-name {
+    font-size: 0.8rem;
+  }
+  .product-card-brand {
+    font-size: 0.65rem;
+  }
+  .product-price-current {
+    font-size: 0.88rem;
+  }
+  /* Keep add-to-bag button readable */
+  .product-card-btn {
+    font-size: 0.72rem;
+    padding: 0.6rem 0.5rem;
+  }
+  /* Ensure image doesn't overflow */
+  .product-card-img-wrap {
+    aspect-ratio: 3 / 4;
+  }
+}
+

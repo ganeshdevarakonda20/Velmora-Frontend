@@ -123,4 +123,16 @@
   .pillars-grid {
     grid-template-columns: 1fr;
   }
+  .about-img-col {
+    height: 260px;
+  }
+  .about-hero h1 {
+    font-size: 1.75rem;
+  }
+  .about-hero p {
+    font-size: 0.95rem;
+  }
+  .about-text-col h2 {
+    font-size: 1.5rem;
+  }
 }

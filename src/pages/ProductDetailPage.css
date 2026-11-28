@@ -537,3 +537,37 @@
     max-width: 100%;
   }
 }
+
+@media (max-width: 600px) {
+  /* CTA buttons stack vertically */
+  .pdp-cta-container {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .pdp-cta-container > * {
+    width: 100%;
+    justify-content: center;
+  }
+  /* Thumbnails smaller */
+  .pdp-compact-img-card {
+    padding: 0.75rem;
+  }
+  /* Price section */
+  .pdp-price-section {
+    gap: 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pdp-right-col {
+    padding: 0;
+  }
+  .pdp-product-title {
+    font-size: 1.3rem;
+  }
+  /* Size options wrap */
+  .pdp-sizes-row {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+}
