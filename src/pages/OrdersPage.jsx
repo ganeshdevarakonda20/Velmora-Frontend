@@ -95,6 +95,13 @@ function OrdersPage() {
             const progressStep = getOrderProgress(order.orderDate, order.status || order.orderStatus)
             const items = order.items || order.orderItems || []
             const paymentMethodStr = order.paymentMethod || 'Online Payment'
+            const itemsSum = items.reduce((acc, item) => {
+              const lineTotal = Number(item.subTotal || 0) > 0
+                ? Number(item.subTotal)
+                : Number(item.price || item.product?.price || 0) * Number(item.quantity || 1)
+              return acc + lineTotal
+            }, 0)
+            const displayTotal = Number(order.totalAmount || 0) > 0 ? Number(order.totalAmount) : itemsSum
 
             return (
               <div key={order.orderId || order.id} className="order-card card">
@@ -183,7 +190,7 @@ function OrdersPage() {
                   </div>
                   <div className="order-card-total">
                     <span>Order Total:</span>
-                    <strong>₹{(order.totalAmount || 0).toLocaleString('en-IN')}</strong>
+                    <strong>₹{displayTotal.toLocaleString('en-IN')}</strong>
                   </div>
                 </div>
               </div>
